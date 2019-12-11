@@ -14,6 +14,7 @@ import Routes from './routes.js'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+    mode: 'history',
     routes : Routes
 })
 
