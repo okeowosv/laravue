@@ -9,9 +9,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
-
-const Dashboard = { template: '<div>Dashboard</div>' }
-const Profile = { template: '<div>Profile</div>' }
+import Dashboard from './components/Dashboard.vue';
+import Profile from './components/Profile.vue';
 
 Vue.use(VueRouter)
 
