@@ -52504,8 +52504,7 @@ module.exports = function(module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue");
-/* harmony import */ var _components_Profile_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue");
+/* harmony import */ var _routes_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes.js */ "./resources/js/routes.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -52516,17 +52515,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 
-
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
-var routes = [{
-  path: '/dashboard',
-  component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-}, {
-  path: '/profile',
-  component: _components_Profile_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-}];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  routes: routes
+  routes: _routes_js__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /**
  * The following block of code may be used to automatically register your
@@ -52803,6 +52794,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Profile_vue_vue_type_template_id_3bd692e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/routes.js":
+/*!********************************!*\
+  !*** ./resources/js/routes.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue");
+/* harmony import */ var _components_Profile_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue");
+
+
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  path: '/dashboard',
+  component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: '/profile',
+  component: _components_Profile_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+}]);
 
 /***/ }),
 
