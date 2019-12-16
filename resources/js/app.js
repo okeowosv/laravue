@@ -8,9 +8,13 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import { Form, HasError, AlertError } from 'vform';
 import VueRouter from 'vue-router'
 import Routes from './routes.js'
 
+window.Form = Form;
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 Vue.use(VueRouter)
 
 const router = new VueRouter({
