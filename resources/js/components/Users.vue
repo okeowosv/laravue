@@ -47,7 +47,7 @@
           </div>
 
         </div>
-
+<form @submit.prevent="createUser">
 <!-- Modal -->
 <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -61,8 +61,7 @@
       <div class="modal-body">
 
         <div class="form-group">
-          <label>Username</label>
-          <input v-model="form.name" type="text" name="name"
+          <input v-model="form.name" placeholder="Username" type="text" name="name"
             class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
           <has-error :form="form" field="name"></has-error>
         </div>
@@ -103,10 +102,11 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Create</button>
       </div>
+      
     </div>
   </div>
 </div>
-        
+</form>    
     </div>
  
    
@@ -124,6 +124,11 @@
               bio: '',
               photo: ''
             })
+        }
+      },
+      methods:{
+        createUser(){
+          this.form.post('api/user');
         }
       },
         mounted() {
