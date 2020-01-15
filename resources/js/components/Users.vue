@@ -103,7 +103,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button v-show="editmode" type="submit" class="btn btn-primary">Update</button>
+        <button v-show="editmode" type="submit" class="btn btn-success">Update</button>
         <button v-show="!editmode" type="submit" class="btn btn-primary">Create</button>
       </div>
       
@@ -123,6 +123,7 @@
             editmode: false,
             users: {},
             form: new Form({
+              id: '',
               name: '',
               email: '',
               password: '',
@@ -134,7 +135,21 @@
       },
       methods:{
         updateUser(){
-          console.log('edit')
+          this.$Progress.start();
+          this.form.put('api/user/'+this.form.id)
+          .then(() => {
+                  $('#addNew').modal('hide');  
+                  Swal.fire(
+                    'Updated!',
+                    'Information has been updated.',
+                    'success'
+                  )
+                  this.$Progress.finish();
+                  Fire.$emit('WatchDog');
+          })
+          .catch(() => {
+            this.$Progress.fail();
+          });
         },
         newModal(){
           this.editmode = false;          
