@@ -193,7 +193,8 @@
             })
         },
         loadUsers(){
-          axios.get("/api/user").then(({data}) => (this.users = data.data));
+          axios.get("/api/user")
+          .then(({data}) => (this.users = data.data));         
         },
         createUser(){
           this.$Progress.start();
