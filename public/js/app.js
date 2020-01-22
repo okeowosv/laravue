@@ -2092,12 +2092,29 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Component mounted.');
   },
+  methods: {
+    updateInfo: function updateInfo() {
+      this.form.put("api/profile/").then(function () {})["catch"](function () {});
+    },
+    updateProfile: function updateProfile(e) {
+      var _this = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      reader.onloadend = function (file) {
+        _this.form.photo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("/api/profile").then(function (_ref) {
       var data = _ref.data;
-      return _this.form.fill(data);
+      return _this2.form.fill(data);
     });
   }
 });
@@ -61127,7 +61144,7 @@ var render = function() {
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            type: "email",
+                            type: "name",
                             id: "inputName",
                             placeholder: "Name"
                           },
@@ -61223,7 +61240,35 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(2),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 col-form-label",
+                          attrs: { for: "customFile" }
+                        },
+                        [_vm._v("Profile Photo")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            attrs: { type: "file", id: "customFile" },
+                            on: { change: _vm.updateProfile }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-file-label",
+                              attrs: { for: "customFile" }
+                            },
+                            [_vm._v("Choose file")]
+                          )
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
@@ -61268,7 +61313,24 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(4)
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.updateInfo($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Update")]
+                        )
+                      ])
+                    ])
                   ])
                 ]
               )
@@ -61401,50 +61463,6 @@ var staticRenderFns = [
           staticClass: "form-control",
           attrs: { type: "text", id: "inputSkills", placeholder: "Skills" }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-sm-2 col-form-label",
-          attrs: { for: "customFile" }
-        },
-        [_vm._v("Profile Photo")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-10" }, [
-        _c("div", { staticClass: "custom-file" }, [
-          _c("input", {
-            staticClass: "custom-file-input",
-            attrs: { type: "file", id: "customFile" }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "custom-file-label", attrs: { for: "customFile" } },
-            [_vm._v("Choose file")]
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("div", { staticClass: "offset-sm-2 col-sm-10" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Update")]
-        )
       ])
     ])
   }
