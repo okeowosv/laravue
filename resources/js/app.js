@@ -3,7 +3,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 import moment from 'moment';
 import { Form, HasError, AlertError } from 'vform';
+
+import gate from "./gate";
+Vue.prototype.$gate = new gate(window.user);
+
+
 import Swal from 'sweetalert2'
+
 // CommonJS
 window.Swal = Swal;
 

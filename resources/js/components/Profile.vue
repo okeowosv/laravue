@@ -17,7 +17,8 @@
                 <h5 class="widget-user-desc text-right">Web Designer</h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle" src="" alt="User Avatar">
+                <img class="img-circle" id="profilePic" :src="getProfilePhoto()" alt="User Avatar" />
+
               </div>
               <div class="card-footer">
                 <div class="row">
@@ -69,13 +70,17 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="name" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
+                          <input type="name" v-model="form.name" class="form-control" id="inputName" placeholder="Name"
+                          :class="{ 'is-invalid': form.errors.has('name') }">
+                          <has-error :form="form" field="name"></has-error>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email">
+                          <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email"
+                          :class="{ 'is-invalid': form.errors.has('email') }">
+                         <has-error :form="form" field="email"></has-error>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -102,7 +107,9 @@
                       <div class="form-group row">
                         <label for="password" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                          <input type="password" v-model="form.password" class="form-control" id="password" placeholder="Password">
+                        <input v-model="form.password" type="password" name="password" id="password"
+                        class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                        <has-error :form="form" field="password"></has-error>                    
                         </div>
                       </div>                      
                       <div class="form-group row">
@@ -142,27 +149,45 @@
             console.log('Component mounted.')
         },
         methods:{
+          getProfilePhoto(){
+            let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo; 
+            return photo;
+          },
           updateInfo(){
+            this.$Progress.start();
             this.form.put("api/profile/")
             .then(() => {
-
+              this.$Progress.finish();
+              Fire.$emit('WatchDog');   
             })
             .catch(()=> {
-
+              this.$Progress.fail();
             });
           },
           updateProfile(e){
            let  file = e.target.files[0];
            let reader = new FileReader();
-            reader.onloadend = (file) => {
-              this.form.photo = reader.result;
-            }           
-           reader.readAsDataURL(file);
+              if(file['size'] < 2111775){
+                  reader.onloadend = (file) => {
+                      this.form.photo = reader.result;
+                    }           
+                  reader.readAsDataURL(file);                             
+              }else{
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Image too large',
+                  footer: '<a href>Why do I have this issue?</a>'
+                })
+              }
           }
         },
-        created() {
-          axios.get("/api/profile")
-          .then(({data}) => (this.form.fill(data)));           
+        mounted() {
+          Fire.$on('WatchDog',()=>{
+              axios.get("/api/profile")
+              .then(({data}) => (this.form.fill(data)));
+            });
+          Fire.$emit('WatchDog');                    
         }
     }
 </script>

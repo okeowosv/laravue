@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" v-if="$gate.isAdmin()">
             <div class="col-md-12">
 
             <div class="card">
@@ -193,8 +193,11 @@
             })
         },
         loadUsers(){
+          if(this.$gate.isAdmin()){
           axios.get("/api/user")
-          .then(({data}) => (this.users = data.data));         
+          .then(({data}) => (this.users = data.data));   
+          }
+      
         },
         createUser(){
           this.$Progress.start();

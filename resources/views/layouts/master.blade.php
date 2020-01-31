@@ -180,7 +180,7 @@
               </p>
             </router-link>
           </li>
-
+          @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog"></i>
@@ -204,7 +204,8 @@
               </li>
             </ul>
           </li>
-
+          @endcan
+          @can('isAdmin')
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
@@ -213,7 +214,7 @@
               </p>
             </router-link>
           </li>
-
+          @endcan
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -299,7 +300,11 @@
 </div>
 </div>
 <!-- ./wrapper -->
-
+@auth
+<script>
+    window.user = @json(auth()->user())
+</script>
+@endauth
 <!-- jQuery 3 -->
 <script src="{{asset('js/app.js')}}"></script>
 </body>
