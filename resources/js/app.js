@@ -42,6 +42,7 @@ Vue.use(VueProgressBar, {
 window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -82,6 +83,11 @@ Vue.component(
 );
 
 Vue.component(
+    'notfound',
+    require('./components/NotFound.vue').default
+);
+
+Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
 );
@@ -94,5 +100,13 @@ Vue.component(
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data:{
+        search: ''
+    },
+    methods:{
+        searchStart:_.debounce(() => {
+                Fire.$emit('searching');
+        }, 1000)
+    }
 });
